@@ -1,0 +1,5 @@
+Flask
+google-cloud-texttospeech
+google-generativeai
+Werkzeug
+gunicorn
