@@ -1,0 +1,24 @@
+steps:
+  # Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/1083393482772/convocourseproject-image:latest', '.']
+
+  # Push the Docker image to Google Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/1083393482772/convocourseproject-image:latest']
+
+  # Deploy the image to Cloud Run
+  - name: 'gcr.io/google-cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'convocourseproject'
+      - '--image'
+      - 'gcr.io/1083393482772/convocourseproject-image:latest'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+
+images: ['gcr.io/1083393482772/convocourseproject-image:latest']
